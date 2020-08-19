@@ -7,15 +7,14 @@ var tableData = data;
 
 function builddatatable(ufo_sighting,selected_date){
 
-console.log(ufo_sighting)
-if(Array.isArray(ufo_sighting) && ufo_sighting.length){
+console.log(ufo_sighting);
+var table_body=d3.select("tbody");
+table_body.html("");
 
-        
-        var table_body=d3.select("tbody")
-        table_body.html("");
+    if(Array.isArray(ufo_sighting) && ufo_sighting.length){
 
         ufo_sighting.forEach((ufo_data) =>{
-    
+
             //console.log(ufo_data);
             var table_row= table_body.append("tr");
 
