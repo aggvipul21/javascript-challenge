@@ -5,23 +5,30 @@ var tableData = data;
 
 //console.log(tableData[0].city);
 
-function builddatatable(ufo_sighting){
+function builddatatable(ufo_sighting,selected_date){
 
-var table_body=d3.select("tbody")
+console.log(ufo_sighting)
+if(Array.isArray(ufo_sighting) && ufo_sighting.length){
 
-ufo_sighting.forEach((ufo_data) =>{
-   
-   //console.log(ufo_data);
-   var table_row= table_body.append("tr");
+        
+        var table_body=d3.select("tbody")
+        table_body.html("");
 
-   Object.entries(ufo_data).forEach(([key,value])=>{
-    var table_col= table_row.append("td");
-    table_col.text(value);
+        ufo_sighting.forEach((ufo_data) =>{
+    
+            //console.log(ufo_data);
+            var table_row= table_body.append("tr");
 
-   });
+            Object.entries(ufo_data).forEach(([key,value])=>{
+                var table_col= table_row.append("td");
+                table_col.text(value);
+            });
+        });
+    }
+    else {
 
-});
-
+        alert(`No sightings seen for date: ${selected_date}.Please enter correct date in format m/d/yyyy`)
+    }
 };
 
 function filterbydate(selected_date,ufo_sighting){
@@ -69,10 +76,10 @@ function submit_date_filter() {
     var filtered_by_sighting_date=tableData.filter(filterbydate.bind(this,selected_date));
     
     //Set the table body to blank
-    d3.select("tbody").html("");
+    
     console.log(filtered_by_sighting_date);
 
-    builddatatable(filtered_by_sighting_date);
+    builddatatable(filtered_by_sighting_date,selected_date);
     }
     else {
         alert("Please enter date in format m/d/yyyy");
@@ -82,4 +89,4 @@ function submit_date_filter() {
     
 };
 
-builddatatable(tableData);
+builddatatable(tableData,"");
